@@ -1,0 +1,29 @@
+{
+  "name": "animais-api",
+  "version": "1.0.0",
+  "description": "api em Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgesnk/Animais-api.git"
+  },
+  "author": "Jorge Nakassima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgesnk/Animais-api/issues"
+  },
+  "homepage": "https://github.com/jorgesnk/Animais-api#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "install": "^0.10.1",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.10.8",
+    "npm": "^5.0.3"
+  }
+}
