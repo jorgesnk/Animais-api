@@ -23,6 +23,7 @@
     "express-jwt": "^5.3.0",
     "install": "^0.10.1",
     "jsonwebtoken": "^7.4.1",
+    "md5": "^2.2.1",
     "mongoose": "^4.10.8",
     "npm": "^5.0.3"
   }

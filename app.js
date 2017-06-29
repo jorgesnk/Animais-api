@@ -17,8 +17,16 @@ server.use(cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 }))
 
-server.post('/', user.cadatro);
-server.use(jwt({ secret: 'segredo' }))
+
+//user routers
+server.delete('/api/user/:id',user.deleta);
+server.get('/api/user/:id',user.find);
+server.post('/api/user/create', user.cadatro);
+server.post('/api/user/singUp',user.singup);
+server.put('/api/user',user.edita);
+
+
+server.use(jwt({ secret: 'segredo',}))
 
 
 db.connection.on('connected', () => {
