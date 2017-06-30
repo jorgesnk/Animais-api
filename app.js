@@ -10,7 +10,7 @@ const jwt = require('express-jwt')
 
 const server = express()
 const user = require('./controllers/user');
-
+const animais = require('./controllers/animais')
 server.use(body.json())
 server.use(cors({
     origin: '*',
@@ -19,14 +19,28 @@ server.use(cors({
 
 
 //user routers
-server.delete('/api/user/:id',user.deleta);
-server.get('/api/user/:id',user.find);
+server.delete('/api/user/:id', user.deleta);
+server.get('/api/user/:id', user.find);
 server.post('/api/user/create', user.cadatro);
-server.post('/api/user/singUp',user.singup);
-server.put('/api/user',user.edita);
+server.post('/api/user/singUp', user.singup);
+server.put('/api/user', user.edita);
+
+//animais routers
+server.patch('/api/animal/foto', animais.removeFoto);//ok
+server.post('/api/animal/foto', animais.addFoto);//ok
+server.patch('/api/animal/find', animais.findApproximate); //ok
+server.put('/api/animal/foto', animais.updateFoto);//ol
+server.get('/api/animal/foto/:id', animais.findFoto);//ok
+server.get('/api/animal/fotos/:id', animais.findAllFotosId); //ok
+server.post('/api/animal', animais.create); //ok
+server.put('/api/animal', animais.update);//ok
+server.get('/api/animal/:id', animais.find);//ok
+server.delete('/api/animal/:id', animais.remove);//ok
 
 
-server.use(jwt({ secret: 'segredo',}))
+
+
+server.use(jwt({ secret: 'segredo', }))
 
 
 db.connection.on('connected', () => {

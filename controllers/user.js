@@ -31,7 +31,7 @@ cadatro = function (req, res) {
             return;
         }).catch(errorSave => {
             res.send(errorSave);
-            res.status(200);
+            res.status(400);
         })
     }).catch(errror => {
         res.status(400);

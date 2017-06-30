@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const animal = new Schema({
     nome: { type: String },
     proprietario:{type:Schema.Types.ObjectId,ref:'Usuario'},
-    foto:[{ type: String }]
+    fotos:[{ foto:{type: String}}],
+    tipo:{type:String}
 })
 
 module.exports = {
