@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const animaisSchema = require('../model/animais')
 const Animais = mongoose.model('animal', animaisSchema.animal);
+const fs = require('fs');
+
+
 
 const create = function (req, res) {
     const params = req.body;
@@ -74,6 +77,14 @@ const findApproximate = function (req, res) {
         res.send(data);
         res.status(200);
     })
+}
+
+const findHome = function (req, res) {
+    Animais.find({}, { _id: 1, proprietario: 1, 'fotos._id': 1, nome:1,  tipo:1 }).limit(10).populate('proprietario','nome foto endereco'  ).then(data => {
+            res.send(data);
+        }).catch(err => {
+            res.send(err);
+        })
 }
 
 const update = function (req, res) {
@@ -161,7 +172,6 @@ const remove = function (req, res) {
     })
 }
 
-
 const findFoto = function (req, res) {
     const params = req.params.id;
     Animais.find({ 'fotos._id': params }, { 'fotos.$': params }).then(data => {
@@ -195,5 +205,6 @@ module.exports = {
     removeFoto,
     remove,
     findFoto,
-    findAllFotosId
+    findAllFotosId,
+    findHome,
 }

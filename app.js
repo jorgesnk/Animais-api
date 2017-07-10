@@ -11,7 +11,8 @@ const jwt = require('express-jwt')
 const server = express()
 const user = require('./controllers/user');
 const animais = require('./controllers/animais')
-server.use(body.json())
+server.use(body.json({ limit: '50mb' }))
+
 server.use(cors({
     origin: '*',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -26,10 +27,11 @@ server.post('/api/user/singUp', user.singup);
 server.put('/api/user', user.edita);
 
 //animais routers
+server.get('/api/animal/home',animais.findHome);
 server.patch('/api/animal/foto', animais.removeFoto);//ok
 server.post('/api/animal/foto', animais.addFoto);//ok
 server.patch('/api/animal/find', animais.findApproximate); //ok
-server.put('/api/animal/foto', animais.updateFoto);//ol
+server.put('/api/animal/foto', animais.updateFoto);//ok
 server.get('/api/animal/foto/:id', animais.findFoto);//ok
 server.get('/api/animal/fotos/:id', animais.findAllFotosId); //ok
 server.post('/api/animal', animais.create); //ok
