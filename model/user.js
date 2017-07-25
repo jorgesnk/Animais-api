@@ -8,6 +8,7 @@ const User = new Schema({
     password: { type: String },
     endereco: {
         logadouro: { type: String },
+        estado:{type:String},
         cidade: { type: String }, bairro: { type: String },
         cep: { type: String }, complemento: { type: String }
     },

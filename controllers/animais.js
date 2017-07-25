@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 const animaisSchema = require('../model/animais')
+const UsuarioSchema = require('../model/user');
+const User = mongoose.model('Usuario', UsuarioSchema.User);
 const Animais = mongoose.model('animal', animaisSchema.animal);
+const yields = require('express-yields');
 const fs = require('fs');
-
 
 
 const create = function (req, res) {
@@ -78,13 +80,43 @@ const findApproximate = function (req, res) {
         res.status(200);
     })
 }
+const findAddress = function* (req, res) {
+    const params = req.body;
 
+
+    const user = yield User.find({ "endereco.estado": params.estado, "endereco.cidade": params.cidade }, { foto:1,nome: 1, endereco: 1 })
+    var retorno = [];
+
+    for (var i = 0; i < user.length; i++) {
+
+        var animal = yield Animais.find({ proprietario: user[i]._id, tipo: params.tipo }, { "fotos._id": 1, nome: 1 });
+        var usuario = user[i]
+
+        retorno.push({ animal, usuario: user[i] })
+
+    }
+
+    var saida = [];
+    retorno.forEach(function (element) {
+        if (element.animal[0]) {
+            saida.push(element);
+        }
+    });
+
+
+
+    res.send( {saida} );
+
+
+
+}
 const findHome = function (req, res) {
-    Animais.find({}, { _id: 1, proprietario: 1, 'fotos._id': 1, nome:1,  tipo:1 }).limit(10).populate('proprietario','nome foto endereco'  ).then(data => {
-            res.send(data);
-        }).catch(err => {
-            res.send(err);
-        })
+
+    Animais.find({}, { _id: 1, proprietario: 1, 'fotos._id': 1, nome: 1, tipo: 1 }).limit(10).populate('proprietario', 'nome foto endereco').then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.send(err);
+    })
 }
 
 const update = function (req, res) {
@@ -207,4 +239,5 @@ module.exports = {
     findFoto,
     findAllFotosId,
     findHome,
+    findAddress,
 }

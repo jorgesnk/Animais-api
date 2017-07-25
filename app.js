@@ -11,7 +11,9 @@ const jwt = require('express-jwt')
 const server = express()
 const user = require('./controllers/user');
 const animais = require('./controllers/animais')
+const endereco= require('./controllers/endereco')
 server.use(body.json({ limit: '50mb' }))
+
 
 server.use(cors({
     origin: '*',
@@ -27,7 +29,8 @@ server.post('/api/user/singUp', user.singup);
 server.put('/api/user', user.edita);
 
 //animais routers
-server.get('/api/animal/home',animais.findHome);
+server.get('/api/animal/home',animais.findHome); //ok
+server.patch('/api/animal/address',animais.findAddress); //ok
 server.patch('/api/animal/foto', animais.removeFoto);//ok
 server.post('/api/animal/foto', animais.addFoto);//ok
 server.patch('/api/animal/find', animais.findApproximate); //ok
@@ -39,8 +42,9 @@ server.put('/api/animal', animais.update);//ok
 server.get('/api/animal/:id', animais.find);//ok
 server.delete('/api/animal/:id', animais.remove);//ok
 
-
-
+// endereco routers
+server.get('/api/endereco',endereco.findEstados);
+server.get('/api/endereco/:sigla',endereco.findCIdade);
 
 server.use(jwt({ secret: 'segredo', }))
 
