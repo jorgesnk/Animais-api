@@ -16,12 +16,13 @@ cadatro = function (req, res) {
             const err = {
                 errorMEssage: 'Usuario ja cadastrado'
             }
-            res.status(400);
+            res.status(200);
             res.send(err)
             return;
         }
         const save = User.create(params).then(usaurio => {
             usaurio.password = "";
+            usaurio.foto="";
             const token = jwt.sign(usaurio, 'segredo');
 
             const retorno = { token: token, user: usaurio };
@@ -108,6 +109,7 @@ deleta = function (req, res) {
     })
 
 }
+
 find = function (req, res) {
     const id = req.params.id;
    

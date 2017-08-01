@@ -2,15 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-    nome: { type: String },
+    nome: { type: String,require: true },
     email: { type: String, require: true },
-    cpf: { type: String },
-    password: { type: String },
+    password: { type: String ,require: true},
     endereco: {
-        logadouro: { type: String },
-        estado:{type:String},
-        cidade: { type: String }, bairro: { type: String },
-        cep: { type: String }, complemento: { type: String }
+        logadouro: { type: String ,require: true},
+        estado:{type:String,require: true},
+        cidade: { type: String,require: true }, bairro: { type: String,require: true },
+        cep: { type: String,require: true }, complemento: { type: String }
     },
     ativo: { type: Boolean },
     redefinirSenha: { type: Boolean },
