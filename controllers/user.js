@@ -46,18 +46,17 @@ singup = function (req, res) {
         message: 'Usuario ou senha invalido'
     }
 
-    User.findOne({ email: params.email }).then(data => {
+    User.findOne({ email: params.email },{foto:0}).then(data => {
         data;
         if (!data) {
             res.send(returnError)
-            res.status(404);
+           
             return;
         }
         var pass = cript.desc(params.password, data.password);
 
         if (!pass) {
             res.send(returnError)
-            res.status(404);
             return;
         }
 
@@ -70,6 +69,7 @@ singup = function (req, res) {
         }
         res.send(retorno);
     }).catch(err => {
+        res.status(err)
         return;
     });
 

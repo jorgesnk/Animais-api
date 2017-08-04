@@ -84,7 +84,7 @@ const findAddress = function* (req, res) {
     const params = req.body;
 
 
-    const user = yield User.find({ "endereco.estado": params.estado, "endereco.cidade": params.cidade }, { foto:1,nome: 1, endereco: 1 })
+    const user = yield User.find({ "endereco.estado": params.estado, "endereco.cidade": params.cidade }, { foto: 1, nome: 1, endereco: 1 })
     var retorno = [];
 
     for (var i = 0; i < user.length; i++) {
@@ -105,18 +105,20 @@ const findAddress = function* (req, res) {
 
 
 
-    res.send( {saida} );
+    res.send({ saida });
 
 
 
 }
 const findHome = function (req, res) {
 
-    Animais.find({}, { _id: 1, proprietario: 1, 'fotos._id': 1, nome: 1, tipo: 1 }).limit(10).populate('proprietario', 'nome foto endereco').then(data => {
-        res.send(data);
-    }).catch(err => {
-        res.send(err);
-    })
+    Animais.find({}, { _id: 1, proprietario: 1, 'fotos._id': 1, nome: 1, tipo: 1 })
+        .populate('proprietario', 'nome foto endereco')
+        .then(data => {
+            res.send(data);
+        }).catch(err => {
+            res.send(err);
+        })
 }
 
 const update = function (req, res) {
