@@ -22,11 +22,8 @@ cadatro = function (req, res) {
         }
         const save = User.create(params).then(usaurio => {
             usaurio.password = "";
-            usaurio.foto="";
             const token = jwt.sign(usaurio, 'segredo');
-
             const retorno = { token: token, user: usaurio };
-
             res.send(retorno);
             res.status(200);
             return;
@@ -46,7 +43,7 @@ singup = function (req, res) {
         message: 'Usuario ou senha invalido'
     }
 
-    User.findOne({ email: params.email },{foto:0}).then(data => {
+    User.findOne({ email: params.email }).then(data => {
         data;
         if (!data) {
             res.send(returnError)

@@ -49,7 +49,7 @@ const create = function (req, res) {
 }
 const find = function (req, res) {
     const id = req.params.id;
-    Animais.findById(id, { nome: 1, proprietario: 1 }).then(data => {
+    Animais.findById(id, { nome: 1, "fotos._id":1 ,proprietario: 1 }).populate('proprietario', 'nome foto endereco').then(data => {
         res.send(data)
         res.status(200);
     }).catch(err => {
